@@ -3,8 +3,6 @@
 require 'rubygems'
 require 'scrapi'
 require 'open-uri'
-require 'ruby-debug'
-require 'net/http'
 
 post_it_image = Scraper.define do
   process "div.post-body > a:first-child > img", :image => "@src"
