@@ -14,4 +14,3 @@ while i < lines.size
   i+=1
   puts i
 end
-
