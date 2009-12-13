@@ -34,53 +34,47 @@ pdf.bounding_box([(total_width / 2) - 100, total_height / 2 - 90], :width => 100
   pdf.text "http://thingsweforget.blogspot.com"
 end
 
-pdf.start_new_page
-
 # Nuevos settings
 pdf.font_size 16
 pdf.fill_color "cc6600"
 
-# #0 y #1
-i0 = "#{File.dirname(__FILE__)}/../images/0.jpg"
-width = 240
-x_pos = (total_width - width) / 2
-pdf.image i0, :at => [  10, (total_height) - 40 ], :width => width
-
-i1 = "#{File.dirname(__FILE__)}/../images/1.jpg"
-width = 240
-x_pos = (total_width - width) / 2
-pdf.image i1, :at => [  (total_width / 2 ) + 10 , (total_height / 2) + 40 ], :width => width
-
-pdf.bounding_box([10, total_height - 20], :width => 60, :height => 20) do
-  pdf.text "#0"
+files = Dir.glob("#{File.dirname(__FILE__)}/../images/[0-9]*.jpg")
+files = files.sort do |a,b|
+  a.split('/').last.to_i <=> b.split('/').last.to_i
 end
 
-pdf.bounding_box([(total_width / 2 ) + 10, (total_height / 2) + 60], :width => 60, :height => 20) do
-  pdf.text "#1"
-end
+i = 0
+while i < files.size
 
-pdf.start_new_page
+  pdf.start_new_page
 
-# #2 y #3
-i2 = "#{File.dirname(__FILE__)}/../images/2.jpg"
-width = 240
-x_pos = (total_width - width) / 2
-pdf.image i2, :at => [  10, (total_height) - 35 ], :width => width
+  if File.file?(files[i])
+    i0 = files[i]
+    width = 240
+    x_pos = (total_width - width) / 2
+    pdf.image i0, :at => [  10, (total_height) - 40 ], :width => width
 
-i3 = "#{File.dirname(__FILE__)}/../images/3.jpg"
-width = 240
-x_pos = (total_width - width) / 2
-pdf.image i3, :at => [  (total_width / 2 ) + 10 , (total_height / 2) + 40 ], :width => width
+    pdf.bounding_box([10, total_height - 20], :width => 60, :height => 20) do
+      pdf.text "##{files[i].split('/').last.split('.').first}"
+    end
+  end
 
-pdf.bounding_box([10, total_height - 20], :width => 60, :height => 20) do
-  pdf.text "#2"
-end
+  if File.file?(files[i+1])
+    i1 = files[i+1]
+    width = 240
+    x_pos = (total_width - width) / 2
+    pdf.image i1, :at => [  (total_width / 2 ) + 10 , (total_height / 2) + 40 ], :width => width
 
-pdf.bounding_box([(total_width / 2 ) + 10, (total_height / 2) + 55], :width => 60, :height => 20) do
-  pdf.text "#3"
+    pdf.bounding_box([(total_width / 2 ) + 10, (total_height / 2) + 60], :width => 60, :height => 20) do
+      pdf.text "##{files[i+1].split('/').last.split('.').first}"
+    end
+  end
+  
+  i+=2
+  
 end
 
 
 # pdf.number_pages "<page> / <total>"
-pdf.render_file "pdf/test.pdf"
+pdf.render_file "pdf/things_we_forgetv1.pdf"
 
