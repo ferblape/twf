@@ -83,3 +83,4 @@ end
 
 # pdf.number_pages "<page> / <total>"
 pdf.render_file "pdf/test.pdf"
+
