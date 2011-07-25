@@ -4,7 +4,7 @@ require 'rubygems'
 require 'ruby-debug'
 require 'prawn'
 
-pdf = Prawn::Document.new(:page_size => 'A5', :page_layout => :landscape, :margin => [10, 5, 10, 5])
+pdf = Prawn::Document.new(:page_size => 'A5', :page_layout => :landscape, :margin => [10, 10, 10, 10])
 
 # Fuente
 pdf.font_families.update("Georgia" => { :normal  => "#{File.dirname(__FILE__)}/../fonts/Georgia.ttf" })
